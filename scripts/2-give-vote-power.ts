@@ -48,7 +48,7 @@ async function main() {
     signer
   ) as MyToken;
 
-  for (let index = 0; index < ACCOUNTS.length; index++) {
+  for (let index = 0; index < 3; index++) {
     const voterWallet = new ethers.Wallet(ACCOUNTS[index]!);
     const voterSignedWallet = voterWallet.connect(provider);
 
@@ -76,9 +76,9 @@ async function main() {
     );
   }
   // Delegation to a new account without minting
-  const voter3Wallet = new ethers.Wallet(ACCOUNTS[3]!);
+  const voter3Wallet = new ethers.Wallet(ACCOUNTS[2]!);
   const voterSigned3Wallet = voter3Wallet.connect(provider);
-  const voter4Wallet = new ethers.Wallet(ACCOUNTS[4]!);
+  const voter4Wallet = new ethers.Wallet(ACCOUNTS[3]!);
 
   const delegateTx = await myTokenContract
       .connect(voterSigned3Wallet)
