@@ -68,7 +68,7 @@ async function main() {
       );  
     } catch(error:any) {
       console.error(
-        `Vote Transaction reverted. ${error}`
+        `Vote Transaction reverted.`
       ); 
     }
     
