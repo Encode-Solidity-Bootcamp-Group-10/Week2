@@ -8,6 +8,7 @@ const ACCOUNTS = [
   process.env.VOTER1_PRIVATE_KEY,
   process.env.VOTER2_PRIVATE_KEY,
   process.env.VOTER3_PRIVATE_KEY,
+  process.env.VOTER4_PRIVATE_KEY,
 ];
 
 if (process.env.PRIVATE_KEY === "" || process.env.MNEMONIC === "") {
@@ -53,17 +54,24 @@ async function main() {
     console.log(
       `Cast ${votePower} votes for Account ${index + 1} ${
         wallet.address
-      } to Propossal ${index + 1}`
+      } to Proposal ${index + 1}`
     );
-    const voteTx = await customBallotContract.vote(
-      index,
-      ethers.utils.parseEther(votePower.toFixed(18))
-    );
-    console.log("Awaiting Vote confirmation");
-    const voteReceipt = await voteTx.wait();
-    console.log(
-      `Vote Transaction completed at block ${voteReceipt.blockNumber}. Hash: ${voteTx.hash}`
-    );
+    try{
+      const voteTx = await customBallotContract.vote(
+        index,
+        ethers.utils.parseEther(votePower.toFixed(18))
+      );
+      console.log("Awaiting Vote confirmation");
+      const voteReceipt = await voteTx.wait();
+      console.log(
+        `Vote Transaction completed at block ${voteReceipt.blockNumber}. Hash: ${voteTx.hash}`
+      );  
+    } catch(error:any) {
+      console.error(
+        `Vote Transaction reverted. ${error}`
+      ); 
+    }
+    
   }
 }
 

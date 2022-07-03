@@ -8,6 +8,7 @@ const ACCOUNTS = [
   process.env.VOTER1_PRIVATE_KEY,
   process.env.VOTER2_PRIVATE_KEY,
   process.env.VOTER3_PRIVATE_KEY,
+  process.env.VOTER4_PRIVATE_KEY,
 ];
 
 if (process.env.PRIVATE_KEY === "" || process.env.MNEMONIC === "") {
@@ -74,6 +75,20 @@ async function main() {
       `Delegate Transaction from ${voterWallet.address} to ${voterWallet.address}  completed at block ${delegateReceipt.blockNumber} . Hash: ${delegateTx.hash}`
     );
   }
+  // Delegation to a new account without minting
+  const voter3Wallet = new ethers.Wallet(ACCOUNTS[3]!);
+  const voterSigned3Wallet = voter3Wallet.connect(provider);
+  const voter4Wallet = new ethers.Wallet(ACCOUNTS[4]!);
+
+  const delegateTx = await myTokenContract
+      .connect(voterSigned3Wallet)
+      .delegate(voter4Wallet.address);
+    console.log("Awaiting Delegate confirmation");
+    const delegateReceipt = await delegateTx.wait();
+    console.log(
+      `Delegate Transaction from ${voter3Wallet.address} to ${voter4Wallet.address}  completed at block ${delegateReceipt.blockNumber} . Hash: ${delegateTx.hash}`
+    );
+
 }
 
 main().catch((error) => {
