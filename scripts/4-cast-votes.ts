@@ -56,7 +56,7 @@ async function main() {
         wallet.address
       } to Proposal ${index + 1}`
     );
-    try{
+    try {
       const voteTx = await customBallotContract.vote(
         index,
         ethers.utils.parseEther(votePower.toFixed(18))
@@ -65,13 +65,10 @@ async function main() {
       const voteReceipt = await voteTx.wait();
       console.log(
         `Vote Transaction completed at block ${voteReceipt.blockNumber}. Hash: ${voteTx.hash}`
-      );  
-    } catch(error:any) {
-      console.error(
-        `Vote Transaction reverted.`
-      ); 
+      );
+    } catch (error: any) {
+      console.error(`Vote Transaction reverted.`);
     }
-    
   }
 }
 

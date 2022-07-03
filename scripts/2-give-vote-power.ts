@@ -68,7 +68,7 @@ async function main() {
     );
     const delegateTx = await myTokenContract
       .connect(voterSignedWallet)
-      .delegate(voterWallet.address);
+      .delegate(voterWallet.address, { gasLimit: 200000 });
     console.log("Awaiting Delegate confirmation");
     const delegateReceipt = await delegateTx.wait();
     console.log(
@@ -82,7 +82,7 @@ async function main() {
 
   const delegateTx = await myTokenContract
     .connect(voterSigned3Wallet)
-    .delegate(voter4Wallet.address);
+    .delegate(voter4Wallet.address, { gasLimit: 200000 });
   console.log("Awaiting Delegate confirmation");
   const delegateReceipt = await delegateTx.wait();
   console.log(

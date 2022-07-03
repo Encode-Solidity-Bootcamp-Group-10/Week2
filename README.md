@@ -26,11 +26,11 @@ yarn run ts-node --files ./scripts/1-deployment-token.ts
 
 ```
 Using address 0x95C1593f28d4623CB31E3510A929106283dE0D99
-Wallet balance 4.683703386423879
+Wallet balance 4.653049768780829
 Deploying MyToken contract
 Awaiting confirmations
 Completed
-Contract deployed at 0xb11aE8198ae3D1D049FC11940FB59e534B5eEC3f
+Contract deployed at 0xef1ee4975fD34dE8489FC7407e6FBF07593359f3
 ```
 
 # 2-Give Vote Power
@@ -38,30 +38,32 @@ Contract deployed at 0xb11aE8198ae3D1D049FC11940FB59e534B5eEC3f
 ## Execution
 
 ```
-yarn run ts-node --files ./scripts/2-give-vote-power.ts 0xb11aE8198ae3D1D049FC11940FB59e534B5eEC3f
+yarn run ts-node --files ./scripts/2-give-vote-power.ts 0xef1ee4975fD34dE8489FC7407e6FBF07593359f3
 ```
 
 ## Console.log
 
 ```
 Using address 0x95C1593f28d4623CB31E3510A929106283dE0D99
-Wallet balance 4.677375832894351
-Attaching MyToken contract interface to address 0xb11aE8198ae3D1D049FC11940FB59e534B5eEC3f
+Wallet balance 4.646722215251301
+Attaching MyToken contract interface to address 0xef1ee4975fD34dE8489FC7407e6FBF07593359f3
 Giving Power vote of 10 to Account 1 0x732e645406536097EF5238753113728812284fE6
 Awaiting Mint confirmation
-Mint Transaction completed at block 12515099. Hash: 0x820a70fa5fe48dd2ddf19ac851510919b082a448853b96dbcf5869cb8db356a4
+Mint Transaction completed at block 12515784. Hash: 0x39981f570785ba844d5b43ce07b2e15491ad702554291df7de2090eb80134740
 Awaiting Delegate confirmation
-Delegate Transaction from 0x732e645406536097EF5238753113728812284fE6 to 0x732e645406536097EF5238753113728812284fE6  completed at block 12515100 . Hash: 0xdde9b4fa02dccbe31f182f75c4305977f9d13dd97061dacab4495713a3ac6f9a
+Delegate Transaction from 0x732e645406536097EF5238753113728812284fE6 to 0x732e645406536097EF5238753113728812284fE6  completed at block 12515786 . Hash: 0x85ef94f0e1cb7114205c7af23318afd708428e86fdbb2180e0271c798f46cdc0
 Giving Power vote of 10 to Account 2 0xF233d122F96fFb3A283E712B4c439cba176C548d
 Awaiting Mint confirmation
-Mint Transaction completed at block 12515102. Hash: 0x5fe19c8a736e5b5139a5f4edf89ec41c7ba8eb1ec2834bbf4add604a561907fe
+Mint Transaction completed at block 12515787. Hash: 0x092f1c3d367536a5d90c10e1b36ecdffc5f35f3f7e785e7fec833baacfc69cbe
 Awaiting Delegate confirmation
-Delegate Transaction from 0xF233d122F96fFb3A283E712B4c439cba176C548d to 0xF233d122F96fFb3A283E712B4c439cba176C548d  completed at block 12515104 . Hash: 0x074125aa214cc2f74fcb0502408a4885ad0077051393284b23fde9116f4de3c8
+Delegate Transaction from 0xF233d122F96fFb3A283E712B4c439cba176C548d to 0xF233d122F96fFb3A283E712B4c439cba176C548d  completed at block 12515789 . Hash: 0x0869784d0c9388b865518e38efd27ee7a40395ffc950cc61dd25fa1e7c60681c
 Giving Power vote of 10 to Account 3 0x3dF475F4c39912e142955265e8f5c38dAd286FE3
 Awaiting Mint confirmation
-Mint Transaction completed at block 12515106. Hash: 0xc232186b08ec8ca17809944ac884d1df1e822465bae51a4e65eb5e56e2a419f0
+Mint Transaction completed at block 12515790. Hash: 0x52661125e03a5e57db3e69f53e3f70e56d4c9e129c126effac0c513c73bb64e7
 Awaiting Delegate confirmation
-Delegate Transaction from 0x3dF475F4c39912e142955265e8f5c38dAd286FE3 to 0x3dF475F4c39912e142955265e8f5c38dAd286FE3  completed at block 12515108 . Hash: 0x9402d62ea23a7690b171043d0af024ce63cf7761312125fe87ab429518d676e1
+Delegate Transaction from 0x3dF475F4c39912e142955265e8f5c38dAd286FE3 to 0x3dF475F4c39912e142955265e8f5c38dAd286FE3  completed at block 12515791 . Hash: 0x15fc175673f996063be5593bacb142487231867e659200f98a3c56560a21bd68
+Awaiting Delegate confirmation
+Delegate Transaction from 0x3dF475F4c39912e142955265e8f5c38dAd286FE3 to 0x4377CCB6c89659c47675a1f99315FCDDa9F48E0a  completed at block 12515792 . Hash: 0x134c49fd737e88cb0854b2e9659ddad8f78f2078cb85d81b2c38d9414aa2d588
 ```
 
 # 3- Deploy CustomBallot Contract
@@ -69,23 +71,24 @@ Delegate Transaction from 0x3dF475F4c39912e142955265e8f5c38dAd286FE3 to 0x3dF475
 ## Execution
 
 ```
- yarn run ts-node --files ./scripts/3-deployment-custom-ballot.ts 0xb11aE8198ae3D1D049FC11940FB59e534B5eEC3f Proposal1 Proposal2 Proposal3
+ yarn run ts-node --files ./scripts/3-deployment-custom-ballot.ts 0xef1ee4975fD34dE8489FC7407e6FBF07593359f3 Proposal1 Proposal2 Proposal3 Proposal4
 ```
 
 ## Console.log
 
 ```
 Using address 0x95C1593f28d4623CB31E3510A929106283dE0D99
-Wallet balance 4.67699211789256
-Attaching MyToken contract interface to address 0xb11aE8198ae3D1D049FC11940FB59e534B5eEC3f
+Wallet balance 4.64633850024951
+Attaching MyToken contract interface to address 0xef1ee4975fD34dE8489FC7407e6FBF07593359f3
 Deploying CustomBallot contract
 Proposals:
 Proposal N. 1: Proposal1
 Proposal N. 2: Proposal2
 Proposal N. 3: Proposal3
+Proposal N. 4: Proposal4
 Awaiting confirmations
 Completed
-Contract deployed at 0x695333bF9391Aa544B60F90d3406cd23C4414233 at block Number 12515118
+Contract deployed at 0x84c894cf358e60be0E87835Bd576724F1f88431a at block Number 12515801
 ```
 
 # 4- Cast Votes
@@ -93,27 +96,32 @@ Contract deployed at 0x695333bF9391Aa544B60F90d3406cd23C4414233 at block Number 
 ## Execution
 
 ```
-yarn run ts-node --files ./scripts/4-cast-votes.ts 0x695333bF9391Aa544B60F90d3406cd23C4414233
+yarn run ts-node --files ./scripts/4-cast-votes.ts 0x84c894cf358e60be0E87835Bd576724F1f88431a
 ```
 
 ## Console.log
 
 ```
+Attaching MyToken contract interface to address 0x84c894cf358e60be0E87835Bd576724F1f88431a
 Using address 0x732e645406536097EF5238753113728812284fE6 to cast vote
-Wallet balance 0.09985528599932467
-Cast 10 votes for Account 1 0x732e645406536097EF5238753113728812284fE6 to Propossal 1
+Wallet balance 0.09884388099460478
+Cast 10 votes for Account 1 0x732e645406536097EF5238753113728812284fE6 to Proposal 1
 Awaiting Vote confirmation
-Vote Transaction completed at block 12515127. Hash: 0x3cf646166613fd11c4e0574a99d0f20c7d25a0574b4a286c76b66bd23756b828
+Vote Transaction completed at block 12515806. Hash: 0xab23cc0b2acf7a675c57b953f95776cb107f10e37141a6b367166cfd8b4edadc
 Using address 0xF233d122F96fFb3A283E712B4c439cba176C548d to cast vote
-Wallet balance 0.09977308599894107
-Cast 9 votes for Account 2 0xF233d122F96fFb3A283E712B4c439cba176C548d to Propossal 2
+Wallet balance 0.09876162699422092
+Cast 9 votes for Account 2 0xF233d122F96fFb3A283E712B4c439cba176C548d to Proposal 2
 Awaiting Vote confirmation
-Vote Transaction completed at block 12515129. Hash: 0x08083719ec5696fc15199fe3e2dccd54ad4f1f31c1bdb73cd68cb6fb21f411ce
+Vote Transaction completed at block 12515807. Hash: 0xbeef9190eea0704003182940baffb2d786e54700e7c94a3ab0c8b394f69a1af0
 Using address 0x3dF475F4c39912e142955265e8f5c38dAd286FE3 to cast vote
-Wallet balance 0.09974576799881359
-Cast 8 votes for Account 3 0x3dF475F4c39912e142955265e8f5c38dAd286FE3 to Propossal 3
+Wallet balance 0.09841025349258119
+Cast 8 votes for Account 3 0x3dF475F4c39912e142955265e8f5c38dAd286FE3 to Proposal 3
+Vote Transaction reverted.
+Using address 0x4377CCB6c89659c47675a1f99315FCDDa9F48E0a to cast vote
+Wallet balance 4.6083854125044645
+Cast 7 votes for Account 4 0x4377CCB6c89659c47675a1f99315FCDDa9F48E0a to Proposal 4
 Awaiting Vote confirmation
-Vote Transaction completed at block 12515130. Hash: 0x13d58812362275cd8945dfd2979b7799d997c07d2ac25999245a522b1f8b7882
+Vote Transaction completed at block 12515808. Hash: 0xcf0bc443ad2e7502394fd7ff4cda3acd777c1178c94132b960444abc439b7d64
 ```
 
 # 5- Query Ballot Result
@@ -121,16 +129,17 @@ Vote Transaction completed at block 12515130. Hash: 0x13d58812362275cd8945dfd297
 ## Execution
 
 ```
-yarn run ts-node --files ./scripts/5-query-voting-results.ts 0x695333bF9391Aa544B60F90d3406cd23C4414233
+yarn run ts-node --files ./scripts/5-query-voting-results.ts 0x84c894cf358e60be0E87835Bd576724F1f88431a
 ```
 
 ## Console.log
 
 ```
 Using address 0x95C1593f28d4623CB31E3510A929106283dE0D99
-Attaching ballot contract interface to address 0x695333bF9391Aa544B60F90d3406cd23C4414233
+Attaching ballot contract interface to address 0x84c894cf358e60be0E87835Bd576724F1f88431a
 Voting Results:
 Proposal N. 1 (Proposal1) : 10.0
 Proposal N. 2 (Proposal2) : 9.0
-Proposal N. 3 (Proposal3) : 8.0
+Proposal N. 3 (Proposal4) : 7.0
+Proposal N. 4 (Proposal3) : 0.0
 ```
