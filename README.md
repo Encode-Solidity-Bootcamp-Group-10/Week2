@@ -64,7 +64,7 @@ Awaiting Delegate confirmation
 Delegate Transaction from 0x3dF475F4c39912e142955265e8f5c38dAd286FE3 to 0x3dF475F4c39912e142955265e8f5c38dAd286FE3  completed at block 12515108 . Hash: 0x9402d62ea23a7690b171043d0af024ce63cf7761312125fe87ab429518d676e1
 ```
 
-# 3- Deploy CustomBallot Conntract
+# 3- Deploy CustomBallot Contract
 
 ## Execution
 
