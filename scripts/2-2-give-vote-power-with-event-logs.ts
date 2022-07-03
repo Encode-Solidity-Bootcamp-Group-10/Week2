@@ -1,0 +1,119 @@
+import { Contract, ethers } from "ethers";
+import "dotenv/config";
+import * as myTokenJson from "../artifacts/contracts/Token.sol/MyToken.json";
+import { MyToken } from "../typechain";
+
+function setDelegateListener(
+  tokenContract: ethers.Contract,
+  provider: ethers.providers.InfuraProvider
+) {
+  // get the contract abi
+  const iface = new ethers.utils.Interface(myTokenJson.abi);
+  console.log("Listening to DelegateVotesChanged Event");
+  const eventFilter = tokenContract.filters.DelegateVotesChanged();
+  // need to decode event logs via parseLog
+  provider.on(eventFilter, (log) => {
+    const delegate = iface.parseLog(log).args[0];
+    const previousBalance = ethers.utils.formatEther(
+      iface.parseLog(log).args[1]
+    );
+    const newBalance = ethers.utils.formatEther(iface.parseLog(log).args[2]);
+    console.log(`Account balance of ${delegate} BEFORE: ${previousBalance}`);
+    console.log(`Giving Power vote of ${BASE_VOTE_POWER} to ${delegate}`);
+    console.log(`Account balance of ${delegate} AFTER: ${newBalance}`);
+  });
+}
+
+const BASE_VOTE_POWER = 10;
+const ACCOUNTS = [
+  process.env.VOTER1_PRIVATE_KEY,
+  process.env.VOTER2_PRIVATE_KEY,
+  process.env.VOTER3_PRIVATE_KEY,
+  process.env.VOTER4_PRIVATE_KEY,
+];
+
+if (process.env.PRIVATE_KEY === "" || process.env.MNEMONIC === "") {
+  console.warn("Must provide PRIVATE_KEY or MNEMONIC environment variable");
+  process.exit(1);
+}
+
+if (process.env.INFURA_PROJECT_ID === "") {
+  console.warn("Must provide INFURA_PROJECT_ID environment variable");
+  process.exit(1);
+}
+
+async function main() {
+  const wallet = new ethers.Wallet(process.env.PRIVATE_KEY!);
+  console.log(`Using address ${wallet.address}`);
+  const provider = new ethers.providers.InfuraProvider(
+    "ropsten",
+    process.env.INFURA_PROJECT_ID
+  );
+  const signer = wallet.connect(provider);
+  const balanceBN = await signer.getBalance();
+  const balance = Number(ethers.utils.formatEther(balanceBN));
+  console.log(`Wallet balance ${balance}`);
+  if (balance < 0.01) {
+    throw new Error("Not enough ether");
+  }
+
+  // Attach to the MyToken Contract
+  if (process.argv.length < 3) throw new Error("MyToken address missing");
+  const MyTokenAddress = process.argv[2];
+  console.log(
+    `Attaching MyToken contract interface to address ${MyTokenAddress}`
+  );
+  const myTokenContract: MyToken = new Contract(
+    MyTokenAddress,
+    myTokenJson.abi,
+    signer
+  ) as MyToken;
+  // setMintListener(myTokenContract, provider);
+  setDelegateListener(myTokenContract, provider);
+
+  for (let index = 0; index < 3; index++) {
+    // get selected Voter's wallet
+    const voterWallet = new ethers.Wallet(ACCOUNTS[index]!);
+    // connect Infura provider API to Wallet to sign transactions
+    const voterSignedWallet = voterWallet.connect(provider);
+    console.log(`----`);
+    console.log(`Account ${index + 1}: ${voterWallet.address}`);
+    const mintTx = await myTokenContract.mint(
+      voterWallet.address,
+      ethers.utils.parseEther(BASE_VOTE_POWER.toFixed(18))
+    );
+    console.log("Awaiting Mint confirmation");
+    const mintReceipt = await mintTx.wait();
+    console.log(
+      `Mint Transaction completed at block ${mintReceipt.blockNumber}. Hash: ${mintTx.hash}`
+    );
+    const delegateTx = await myTokenContract
+      .connect(voterSignedWallet)
+      .delegate(voterWallet.address, { gasLimit: 200000 });
+    console.log("Awaiting Delegate confirmation");
+    const delegateReceipt = await delegateTx.wait();
+    console.log(
+      `Delegate Transaction from ${voterWallet.address} to ${voterWallet.address}  completed at block ${delegateReceipt.blockNumber} . Hash: ${delegateTx.hash}`
+    );
+  }
+  // Delegation to a new account without minting
+  const voter3Wallet = new ethers.Wallet(ACCOUNTS[2]!);
+  const voterSigned3Wallet = voter3Wallet.connect(provider);
+  // voter4 has not been minted or delegated itself in the loop
+  const voter4Wallet = new ethers.Wallet(ACCOUNTS[3]!);
+
+  const delegateTx = await myTokenContract
+    .connect(voterSigned3Wallet)
+    .delegate(voter4Wallet.address, { gasLimit: 200000 });
+  console.log("Awaiting Delegate confirmation");
+  const delegateReceipt = await delegateTx.wait();
+  console.log(
+    `Delegate Transaction from ${voter3Wallet.address} to ${voter4Wallet.address}  completed at block ${delegateReceipt.blockNumber} . Hash: ${delegateTx.hash}`
+  );
+  console.log(`----`);
+}
+
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});
